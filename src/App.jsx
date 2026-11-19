@@ -2,36 +2,36 @@ import React, { useState, useEffect, useMemo } from 'react';
 import NightFlashcards, { FullscreenFlashcard } from './components/NightFlashcards';
 
 const ROLES_DB = {
-  washerwoman: ['Washerwoman', 'townsfolk', '🧺', 'You start knowing that 1 of 2 players is a specific Townsfolk.'],
-  librarian: ['Librarian', 'townsfolk', '📚', 'You start knowing that 1 of 2 players is a specific Outsider, or that zero are in play.'],
-  investigator: ['Investigator', 'townsfolk', '🔍', 'You start knowing that 1 of 2 players is a specific Minion.'],
-  chef: ['Chef', 'townsfolk', '🧑‍🍳', 'You start knowing how many pairs of evil players are sitting next to each other.'],
-  empath: ['Empath', 'townsfolk', '👁️', 'Each night, you learn how many of your 2 alive neighbours are evil.'],
-  fortuneteller: ['Fortune Teller', 'townsfolk', '🔮', 'Each night, choose 2 players: you learn if either is a Demon. 1 good player registers as a Demon.'],
-  undertaker: ['Undertaker', 'townsfolk', '⚰️', 'Each night*, you learn which character died by execution today.'],
-  monk: ['Monk', 'townsfolk', '🛡️', 'Each night*, choose a player (not yourself): they are safe from the Demon tonight.'],
-  ravenkeeper: ['Ravenkeeper', 'townsfolk', '🦅', 'If you die at night, you are woken to choose a player: you learn their character.'],
-  virgin: ['Virgin', 'townsfolk', '🕊️', 'The 1st time you are nominated, if the nominator is a Townsfolk, they are executed immediately.'],
-  slayer: ['Slayer', 'townsfolk', '🏹', 'Once per game, during the day, publicly choose a player: if they are the Demon, they die.'],
-  soldier: ['Soldier', 'townsfolk', '⚔️', 'You are safe from the Demon.'],
-  mayor: ['Mayor', 'townsfolk', '🏛️', 'If only 3 players live & no execution occurs, your team wins. If you die at night, another player might die instead.'],
-  butler: ['Butler', 'outsider', '🛎️', 'Each night, choose a master: you may only vote if they are voting too.'],
-  drunk: ['Drunk', 'outsider', '🍺', 'You do not know you are the Drunk. You think you are a Townsfolk, but you are not.'],
-  recluse: ['Recluse', 'outsider', '🦹', 'You might register as evil & as a Minion or Demon, even if dead.'],
-  saint: ['Saint', 'outsider', '😇', 'If you die by execution, your team loses.'],
-  poisoner: ['Poisoner', 'minion', '🧪', 'Each night, choose a player: they are poisoned tonight and tomorrow day.'],
-  spy: ['Spy', 'minion', '🕵️', 'Each night, you see the Grimoire. You might register as good & as a Townsfolk or Outsider, even if dead.'],
-  scarletwoman: ['Scarlet Woman', 'minion', '💃', 'If there are 5 or more players alive & the Demon dies, you become the Demon.'],
-  baron: ['Baron', 'minion', '🎩', 'There are extra Outsiders in play. [+2 Outsiders]'],
-  imp: ['Imp', 'demon', '😈', 'Each night*, choose a player: they die. If you kill yourself this way, a Minion becomes the Imp.'],
+  washerwoman: ['Tvätterska', 'townsfolk', '🧺', 'Du börjar med att veta att 1 av 2 spelare är en specifik stadsbo.'],
+  librarian: ['Bibliotekarie', 'townsfolk', '📚', 'Du börjar med att veta att 1 av 2 spelare är en specifik utböling, eller att inga finns i spel.'],
+  investigator: ['Utredare', 'townsfolk', '🔍', 'Du börjar med att veta att 1 av 2 spelare är en specifik hantlangare.'],
+  chef: ['Kock', 'townsfolk', '🧑‍🍳', 'Du börjar med att veta hur många par av onda spelare som sitter bredvid varandra.'],
+  empath: ['Empat', 'townsfolk', '👁️', 'Varje natt får du veta hur många av dina 2 levande grannar som är onda.'],
+  fortuneteller: ['Spåkvinna', 'townsfolk', '🔮', 'Varje natt, välj 2 spelare: du får veta om någon av dem är en demon. 1 god spelare registreras som en demon.'],
+  undertaker: ['Dödgrävare', 'townsfolk', '⚰️', 'Varje natt* får du veta vilken karaktär som dog genom avrättning i dag.'],
+  monk: ['Munk', 'townsfolk', '🛡️', 'Varje natt*, välj en spelare (inte dig själv): den är skyddad från demonen i natt.'],
+  ravenkeeper: ['Korpvaktare', 'townsfolk', '🦅', 'Om du dör på natten väcks du för att välja en spelare: du får veta dennes karaktär.'],
+  virgin: ['Jungfru', 'townsfolk', '🕊️', 'Första gången du blir nominerad, om den som nominerar är en stadsbo, avrättas den omedelbart.'],
+  slayer: ['Dråpare', 'townsfolk', '🏹', 'En gång per spel, under dagen, välj offentligt en spelare: om den är demonen dör den.'],
+  soldier: ['Soldat', 'townsfolk', '⚔️', 'Du är skyddad från demonen.'],
+  mayor: ['Borgmästare', 'townsfolk', '🏛️', 'Om bara 3 spelare lever och ingen avrättning sker vinner ditt lag. Om du dör på natten kan en annan spelare dö i stället.'],
+  butler: ['Butler', 'outsider', '🛎️', 'Varje natt, välj en husbonde: du får bara rösta om den också röstar.'],
+  drunk: ['Fyllo', 'outsider', '🍺', 'Du vet inte att du är fyllot. Du tror att du är en stadsbo, men det är du inte.'],
+  recluse: ['Eremit', 'outsider', '🦹', 'Du kan registreras som ond och som hantlangare eller demon, även när du är död.'],
+  saint: ['Helgon', 'outsider', '😇', 'Om du dör genom avrättning förlorar ditt lag.'],
+  poisoner: ['Giftblandare', 'minion', '🧪', 'Varje natt, välj en spelare: den är förgiftad i natt och under morgondagen.'],
+  spy: ['Spion', 'minion', '🕵️', 'Varje natt ser du grimoiren. Du kan registreras som god och som stadsbo eller utböling, även när du är död.'],
+  scarletwoman: ['Skarlakanskvinna', 'minion', '💃', 'Om 5 eller fler spelare lever och demonen dör blir du demonen.'],
+  baron: ['Baron', 'minion', '🎩', 'Det finns extra utbölingar i spel. [+2 utbölingar]'],
+  imp: ['Imp', 'demon', '😈', 'Varje natt*, välj en spelare: den dör. Om du dödar dig själv på detta sätt blir en hantlangare imp.'],
 };
 
 const TEAM_STYLES = {
-  townsfolk: { label: 'Townsfolk', border: 'border-blue-500', bg: 'bg-blue-950/60', text: 'text-blue-300', badge: 'bg-blue-600' },
-  outsider: { label: 'Outsiders', border: 'border-cyan-500', bg: 'bg-cyan-950/60', text: 'text-cyan-300', badge: 'bg-cyan-600' },
-  minion: { label: 'Minions', border: 'border-orange-500', bg: 'bg-orange-950/60', text: 'text-orange-300', badge: 'bg-orange-600' },
-  demon: { label: 'Demons', border: 'border-red-500', bg: 'bg-red-950/60', text: 'text-red-300', badge: 'bg-red-600' },
-  unknown: { label: 'Custom / Other', border: 'border-zinc-500', bg: 'bg-zinc-900', text: 'text-zinc-300', badge: 'bg-zinc-600' },
+  townsfolk: { label: 'Stadsbor', name: 'Stadsbo', border: 'border-blue-500', bg: 'bg-blue-950/60', text: 'text-blue-300', badge: 'bg-blue-600' },
+  outsider: { label: 'Utbölingar', name: 'Utböling', border: 'border-cyan-500', bg: 'bg-cyan-950/60', text: 'text-cyan-300', badge: 'bg-cyan-600' },
+  minion: { label: 'Hantlangare', name: 'Hantlangare', border: 'border-orange-500', bg: 'bg-orange-950/60', text: 'text-orange-300', badge: 'bg-orange-600' },
+  demon: { label: 'Demoner', name: 'Demon', border: 'border-red-500', bg: 'bg-red-950/60', text: 'text-red-300', badge: 'bg-red-600' },
+  unknown: { label: 'Egna / Övriga', name: 'Övrig', border: 'border-zinc-500', bg: 'bg-zinc-900', text: 'text-zinc-300', badge: 'bg-zinc-600' },
 };
 
 const getRoleInfo = (id) => {
@@ -43,6 +43,7 @@ const getRoleInfo = (id) => {
       team: ROLES_DB[cleanId][1],
       icon: ROLES_DB[cleanId][2] || '✦',
       ability: ROLES_DB[cleanId][3] || '',
+      teamName: TEAM_STYLES[ROLES_DB[cleanId][1]].name,
     };
   }
   return {
@@ -51,6 +52,7 @@ const getRoleInfo = (id) => {
     team: 'unknown',
     icon: '✦',
     ability: '',
+    teamName: TEAM_STYLES.unknown.name,
   };
 };
 
@@ -111,7 +113,7 @@ export default function App() {
           setSeats([]);
         }
       } catch {
-        alert('Invalid script JSON');
+        alert('Ogiltig skript-JSON');
       }
     };
     reader.readAsText(file);
@@ -142,7 +144,7 @@ export default function App() {
 
   const startSeating = () => {
     if (isDrunkInBag && !drunkDisguise) {
-      alert('Pick a Townsfolk disguise for Drunk first!');
+      alert('Välj först en stadsbo-förklädnad åt fyllot!');
       return;
     }
     setSeats((prev) =>
@@ -175,7 +177,7 @@ export default function App() {
   }, [scriptRoles]);
 
   const handleResetGame = () => {
-    if (window.confirm('Reset current game? This will clear all seats and selected bag roles.')) {
+    if (window.confirm('Återställ pågående spel? Alla platser och valda roller i påsen rensas.')) {
       setBagRoles([]);
       setDrunkDisguise('');
       setSeats([]);
@@ -190,16 +192,16 @@ export default function App() {
       <header className="sticky top-0 z-20 bg-zinc-900 border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
         <div>
           <h1 className="text-base font-bold text-amber-400">BotC Pocket Grimoire</h1>
-          <p className="text-xs text-zinc-400">Script: <b className="text-zinc-200">{scriptName}</b></p>
+          <p className="text-xs text-zinc-400">Skript: <b className="text-zinc-200">{scriptName}</b></p>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={handleResetGame}
-            title="Reset current game and start fresh"
+            title="Återställ pågående spel och börja om"
             className="text-xs text-zinc-400 hover:text-rose-400 border border-zinc-700 hover:border-rose-900/60 bg-zinc-800 px-2 py-1.5 rounded-lg transition-colors flex items-center gap-1"
           >
             <span>↺</span>
-            <span className="hidden sm:inline">Reset</span>
+            <span className="hidden sm:inline">Återställ</span>
           </button>
           <button
             onClick={() => setActiveTab('night')}
@@ -210,10 +212,10 @@ export default function App() {
             }`}
           >
             <span>🌙</span>
-            <span className="hidden sm:inline">Big Text</span>
+            <span className="hidden sm:inline">Stor text</span>
           </button>
           <label className="cursor-pointer bg-zinc-800 hover:bg-zinc-700 text-xs font-medium px-2.5 py-1.5 rounded-lg border border-zinc-700">
-            Load JSON
+            Ladda JSON
             <input type="file" accept=".json,application/json" onChange={handleFileUpload} className="hidden" />
           </label>
         </div>
@@ -224,20 +226,20 @@ export default function App() {
           onClick={() => setActiveTab('bag')}
           className={`py-3 border-b-2 ${activeTab === 'bag' ? 'border-amber-400 text-amber-400 bg-zinc-800/40' : 'border-transparent text-zinc-400'}`}
         >
-          1. Bag ({bagRoles.length})
+          1. Påse ({bagRoles.length})
         </button>
         <button
           onClick={startSeating}
           disabled={!bagRoles.length}
           className={`py-3 border-b-2 ${activeTab === 'seating' ? 'border-amber-400 text-amber-400 bg-zinc-800/40' : 'border-transparent text-zinc-400 disabled:opacity-40'}`}
         >
-          2. Seats ({seats.filter((s) => s.drawnToken).length}/{bagRoles.length})
+          2. Platser ({seats.filter((s) => s.drawnToken).length}/{bagRoles.length})
         </button>
         <button
           onClick={() => setActiveTab('night')}
           className={`py-3 border-b-2 flex items-center justify-center gap-1 ${activeTab === 'night' ? 'border-amber-400 text-amber-400 bg-zinc-800/40' : 'border-transparent text-zinc-400'}`}
         >
-          <span>3. Prompts</span>
+          <span>3. Kort</span>
           <span className="text-xs">🌙</span>
         </button>
       </div>
@@ -267,7 +269,7 @@ export default function App() {
                           <span>{r.name}</span>
                         </span>
                         {sel && <span className={`w-2.5 h-2.5 rounded-full ${st.badge} shrink-0`} />}
-                        {dis && <span className="text-[10px] font-bold bg-amber-500 text-zinc-950 px-1.5 rounded shrink-0">DRUNK</span>}
+                        {dis && <span className="text-[10px] font-bold bg-amber-500 text-zinc-950 px-1.5 rounded shrink-0">FYLLO</span>}
                       </button>
                     );
                   })}
@@ -280,13 +282,13 @@ export default function App() {
             <div className="fixed bottom-0 left-0 right-0 p-3 bg-zinc-900 border-t border-zinc-800 space-y-2 z-20">
               {isDrunkInBag && (
                 <div className="max-w-lg mx-auto flex items-center gap-2 bg-amber-950/60 border border-amber-500/60 px-3 py-2 rounded-xl">
-                  <span className="text-xs font-bold text-amber-300 shrink-0">Drunk token:</span>
+                  <span className="text-xs font-bold text-amber-300 shrink-0">Fyllots polett:</span>
                   <select
                     value={drunkDisguise}
                     onChange={(e) => setDrunkDisguise(e.target.value)}
                     className="bg-zinc-900 border border-zinc-700 rounded-lg px-2 py-1.5 text-xs text-zinc-100 w-full"
                   >
-                    <option value="">-- Pick Townsfolk Disguise --</option>
+                    <option value="">-- Välj stadsbo-förklädnad --</option>
                     {availableTownsfolkForDrunk.map((tf) => (
                       <option key={tf.id} value={tf.id}>{tf.name}</option>
                     ))}
@@ -295,10 +297,10 @@ export default function App() {
               )}
               <div className="max-w-lg mx-auto flex items-center justify-between">
                 <div className="text-xs text-zinc-300">
-                  Players: <b className="text-white">{bagRoles.length}</b> | Bag ready: {physicalTokensInBag.length}/{bagRoles.length}
+                  Spelare: <b className="text-white">{bagRoles.length}</b> | Påsen klar: {physicalTokensInBag.length}/{bagRoles.length}
                 </div>
                 <button onClick={startSeating} className="bg-amber-500 text-zinc-950 font-bold text-sm px-4 py-2 rounded-xl">
-                  Confirm Bag
+                  Bekräfta påse
                 </button>
               </div>
             </div>
@@ -309,10 +311,10 @@ export default function App() {
       {activeTab === 'seating' && (
         <main className="p-4 space-y-4 max-w-lg mx-auto">
           <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs">
-            <div className="text-zinc-400 mb-1.5">Unassigned in bag ({unassignedTokens.length}):</div>
+            <div className="text-zinc-400 mb-1.5">Kvar i påsen ({unassignedTokens.length}):</div>
             <div className="flex flex-wrap gap-1.5">
               {unassignedTokens.length === 0 ? (
-                <span className="text-emerald-400 font-bold">All tokens assigned!</span>
+                <span className="text-emerald-400 font-bold">Alla poletter utdelade!</span>
               ) : (
                 unassignedTokens.map((id) => (
                   <span key={id} className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 flex items-center gap-1">
@@ -339,7 +341,7 @@ export default function App() {
                     </span>
                     <input
                       type="text"
-                      placeholder="Player name (optional)"
+                      placeholder="Spelarens namn (valfritt)"
                       value={s.name}
                       onChange={(e) => setSeats((p) => p.map((x, i) => (i === idx ? { ...x, name: e.target.value } : x)))}
                       className="bg-transparent text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none w-full truncate"
@@ -351,17 +353,17 @@ export default function App() {
                         onClick={() =>
                           setFullscreenCard({
                             title: actual.name,
-                            subtitle: s.name ? `Seat #${s.seat} • ${s.name}` : `Seat #${s.seat}`,
+                            subtitle: s.name ? `Plats #${s.seat} • ${s.name}` : `Plats #${s.seat}`,
                             icon: actual.icon,
                             team: actual.team,
-                            teamLabel: isDrunk ? 'OUTSIDER (DRUNK)' : actual.team.toUpperCase(),
+                            teamLabel: isDrunk ? 'UTBÖLING (FYLLO)' : actual.teamName.toUpperCase(),
                             description: actual.ability,
                           })
                         }
-                        title="Show role to player in Big Text"
+                        title="Visa rollen för spelaren med stor text"
                         className="bg-zinc-800 hover:bg-zinc-700 border border-zinc-750 px-2 py-1.5 rounded-lg text-xs text-zinc-300 hover:text-white"
                       >
-                        👁️ Show
+                        👁️ Visa
                       </button>
                     )}
                     <button
@@ -370,10 +372,10 @@ export default function App() {
                     >
                       {drawn ? (
                         <span className="text-white">
-                          {drawn.name} {isDrunk && <b className="bg-amber-500 text-zinc-950 px-1 rounded ml-1">DRUNK</b>}
+                          {drawn.name} {isDrunk && <b className="bg-amber-500 text-zinc-950 px-1 rounded ml-1">FYLLO</b>}
                         </span>
                       ) : (
-                        '+ Assign Role'
+                        '+ Tilldela roll'
                       )}
                     </button>
                   </div>
@@ -386,7 +388,7 @@ export default function App() {
             <div className="fixed inset-0 z-30 bg-black/75 flex items-end sm:items-center justify-center p-4" onClick={() => setSelectedSeatIndex(null)}>
               <div className="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-md p-4 space-y-3" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-center border-b border-zinc-800 pb-2">
-                  <span className="font-bold text-sm">Seat #{seats[selectedSeatIndex].seat} — Select Drawn Token</span>
+                  <span className="font-bold text-sm">Plats #{seats[selectedSeatIndex].seat} — Välj dragen polett</span>
                   <button onClick={() => setSelectedSeatIndex(null)} className="text-zinc-400 px-2">✕</button>
                 </div>
                 <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
@@ -407,14 +409,14 @@ export default function App() {
                           <span>{info.icon}</span>
                           <span>{info.name}</span>
                         </div>
-                        <div className="text-zinc-400">{taken ? `Seat #${taken.seat}` : 'In bag'}</div>
+                        <div className="text-zinc-400">{taken ? `Plats #${taken.seat}` : 'I påsen'}</div>
                       </button>
                     );
                   })}
                 </div>
                 {seats[selectedSeatIndex].drawnToken && (
                   <button onClick={() => assignToken(selectedSeatIndex, null)} className="w-full py-2 text-xs text-red-400 border border-red-900/40 rounded-lg">
-                    Clear Seat
+                    Töm plats
                   </button>
                 )}
               </div>

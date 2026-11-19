@@ -13,7 +13,8 @@ export default defineConfig({
       manifest: {
         name: 'BotC Pocket Grimoire',
         short_name: 'Grimoire',
-        description: 'Pocket Grimoire & Storyteller Assistant for Blood on the Clocktower',
+        description: 'Fickgrimoire och berättarassistent för Blood on the Clocktower',
+        lang: 'sv',
         theme_color: '#09090b',
         background_color: '#09090b',
         display: 'standalone',
