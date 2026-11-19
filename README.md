@@ -39,6 +39,15 @@ Befintliga digitala assistenter har centrala UX-problem när man leder spel på 
   - Spelarnamn är valfria — de kan anges direkt eller fyllas i senare.
   - Berättaren ser den verkliga rollen: när fyllots förklädnad dras visas etiketten **FYLLO**.
   - Lista i realtid över de poletter som ännu inte tilldelats och ligger kvar i påsen.
+  - Knappen **👁️ Visa** på en tilldelad plats visar platsens roll, med förmåga och lag, som ett kort med stor text.
+- 🌙 **3. Kort (nattläge / stor text):**
+  - Gör det möjligt för berättaren att kommunicera helt tyst under natten, utan ljud som kan avslöja något.
+  - Nås via fliken **3. Kort** eller via 🌙-knappen i sidhuvudet.
+  - Varje kort visas i helskärm med svart bakgrund, hög kontrast och mycket stor text, så att det går att läsa på 1–1,5 meters avstånd i mörker. Tryck var som helst på skärmen för att stänga kortet.
+  - **Eget meddelande:** skriv valfri text och visa den stort med **Visa stort**.
+  - **Snabbsvar och antal:** **JA**, **NEJ** och siffrorna **0–3**.
+  - **Officiella nattinstruktioner:** färdiga kort, bland annat ”Välj en spelare”, ”Peka på 2 spelare”, ”Välj en karaktär”, ”Detta är dina hantlangare”, ”Detta är din demon”, ”Blunda”, ”Nominerade du i dag?” och ”Röstade du i dag?”.
+  - **Visa karaktärspolett:** visar en karaktär med ikon, lag och förmåga. Listan innehåller rollerna i påsen, eller hela skriptet om påsen är tom.
 
 ---
 
@@ -100,6 +109,8 @@ grimoire/
 │   └── requirements.md          # Teamets fastslagna beslut och krav på MVP:n
 ├── src/
 │   ├── assets/                  # Grafik och ikoner
+│   ├── components/
+│   │   └── NightFlashcards.jsx  # Nattläget: kort med stor text i helskärm, snabbsvar, nattinstruktioner
 │   ├── App.jsx                  # Applogik (Påse, Platser, Fyllo, JSON-inläsning)
 │   ├── index.css                # Inkludering av Tailwind CSS v4
 │   └── main.jsx                 # Ingångspunkt för React
