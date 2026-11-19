@@ -351,13 +351,14 @@ export default function App() {
                     {drawn && (
                       <button
                         onClick={() =>
+                          // Kortet visas för spelaren: fyllot ska se sin förklädnad (den dragna poletten), aldrig att den är fyllot.
                           setFullscreenCard({
-                            title: actual.name,
+                            title: drawn.name,
                             subtitle: s.name ? `Plats #${s.seat} • ${s.name}` : `Plats #${s.seat}`,
-                            icon: actual.icon,
-                            team: actual.team,
-                            teamLabel: isDrunk ? 'UTBÖLING (FYLLO)' : actual.teamName.toUpperCase(),
-                            description: actual.ability,
+                            icon: drawn.icon,
+                            team: drawn.team,
+                            teamLabel: drawn.teamName.toUpperCase(),
+                            description: drawn.ability,
                           })
                         }
                         title="Visa rollen för spelaren med stor text"
