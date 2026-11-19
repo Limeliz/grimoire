@@ -7,127 +7,127 @@
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8)](https://tailwindcss.com/)
 [![Oxlint](https://img.shields.io/badge/linter-oxlint-orange)](https://oxc.rs/)
 
-> Компактный, быстрый и мобильный веб-помощник ведущего (Storyteller) для настольной игры **Blood on the Clocktower**. Оптимизирован для реальных офлайн-игр и работы со смартфона в темноте.
+> En kompakt, snabb och mobilanpassad webbassistent för berättaren (Storyteller) i brädspelet **Blood on the Clocktower**. Optimerad för riktiga spel runt bordet och för att användas från en smartphone i mörker.
 
-🌐 **Рабочее демо (GitHub Pages):** [https://ivank-9.github.io/grimoire/](https://ivank-9.github.io/grimoire/)
-
----
-
-## 🎯 Зачем этот проект?
-
-Существующие цифровые помощники имеют ключевые проблемы UX при ведении живых игр:
-1. **[botc.games/play](https://botc.games/play):** Неудобный UX для живого стола — требует сначала вводить имена всех игроков, и только потом назначать роли.
-2. **BOTCH (Google Play):** Устаревший и перегруженный интерфейс.
-3. **Отсутствие механики Пьяницы (Drunk):** Ни одно из популярных приложений не позволяет прямо на этапе сбора мешка назначить фальшивый жетон Горожанина (*Townsfolk disguise*), который ведущий физически кладет в мешок вместо жетона Пьяницы.
-
-**BotC Pocket Grimoire** решает именно эти задачи: ведущий собирает мешок, выбирает маскировку для Пьяницы, а затем в 1 тап распределяет роли по местам прямо по ходу того, как игроки физически тянут жетоны.
+🌐 **Livedemo (GitHub Pages):** [https://ivank-9.github.io/grimoire/](https://ivank-9.github.io/grimoire/)
 
 ---
 
-## ✨ Реализованный функционал (MVP)
+## 🎯 Varför det här projektet?
 
-- 📜 **Поддержка официальных скриптов:**
-  - Встроена классическая редакция **Trouble Brewing** (22 роли).
-  - Кнопка **Load JSON** поддерживает импорт сценариев напрямую из официального редактора [script.bloodontheclocktower.com](https://script.bloodontheclocktower.com/) (поддерживаются как массивы ID, так и объекты с метаданными).
-- 🎒 **1. Bag (Сборка мешка):**
-  - Быстрый выбор ролей с цветовой группировкой по командам (*Townsfolk, Outsider, Minion, Demon*).
-  - **Авто-контроль Пьяницы (Drunk):** если выбран Drunk, приложение обязывает выбрать непопавшего в игру Горожанина для физической маскировки в мешке.
-  - Индикатор количества игроков и готовности мешка.
-- 🪑 **2. Seats (Рассадка в 1 тап):**
-  - Автоматическое создание мест по количеству ролей в мешке.
-  - Назначение вытянутого жетона в 1 клик через удобное модальное окно.
-  - Имена игроков опциональны — их можно ввести сразу или дополнить позже.
-  - Ведущий видит реальную роль: при вытягивании маскировки Пьяницы отображается плашка **DRUNK**.
-  - Список оставшихся неназначенных жетонов в мешке в реальном времени.
+Befintliga digitala assistenter har centrala UX-problem när man leder spel på plats:
+1. **[botc.games/play](https://botc.games/play):** Opraktiskt UX för ett fysiskt bord — kräver att man först skriver in alla spelares namn och först därefter tilldelar roller.
+2. **BOTCH (Google Play):** Föråldrat och överbelastat gränssnitt.
+3. **Ingen mekanik för Fyllot (Drunk):** Ingen av de populära apparna låter berättaren redan när påsen sätts ihop välja den falska stadsbo-polett (*Townsfolk disguise*) som fysiskt läggs i påsen i stället för fyllots polett.
+
+**BotC Pocket Grimoire** löser just dessa problem: berättaren sätter ihop påsen, väljer fyllots förklädnad och fördelar sedan rollerna på platserna med ett tryck, i takt med att spelarna fysiskt drar poletter.
 
 ---
 
-## 🛠 Технологический стек
+## ✨ Implementerade funktioner (MVP)
+
+- 📜 **Stöd för officiella skript:**
+  - Den klassiska utgåvan **Trouble Brewing** (22 roller) är inbyggd.
+  - Knappen **Ladda JSON** stöder import av skript direkt från den officiella editorn [script.bloodontheclocktower.com](https://script.bloodontheclocktower.com/) (både listor med ID:n och objekt med metadata stöds).
+- 🎒 **1. Påse (sätta ihop påsen):**
+  - Snabbt val av roller, färggrupperade efter lag (*Stadsbor, Utbölingar, Hantlangare, Demoner*).
+  - **Automatisk kontroll av Fyllot (Drunk):** om Fyllo väljs kräver appen att man väljer en stadsbo som inte är med i spelet som fysisk förklädnad i påsen.
+  - Indikator för antal spelare och om påsen är klar.
+- 🪑 **2. Platser (placering med ett tryck):**
+  - Platser skapas automatiskt utifrån antalet roller i påsen.
+  - Den dragna poletten tilldelas med ett klick via ett smidigt modalfönster.
+  - Spelarnamn är valfria — de kan anges direkt eller fyllas i senare.
+  - Berättaren ser den verkliga rollen: när fyllots förklädnad dras visas etiketten **FYLLO**.
+  - Lista i realtid över de poletter som ännu inte tilldelats och ligger kvar i påsen.
+
+---
+
+## 🛠 Teknikstack
 
 * **Frontend:** [React 19](https://react.dev/)
-* **Bundler & Dev Server:** [Vite 8](https://vite.dev/)
+* **Bundler & dev-server:** [Vite 8](https://vite.dev/)
 * **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (`@tailwindcss/vite`)
-* **Linter:** [Oxlint](https://oxc.rs/) (ультрабыстрый Rust-линтер)
-* **CI/CD:** GitHub Actions (авто-проверка `oxlint` + `build` на каждый push/PR) + `gh-pages`
+* **Linter:** [Oxlint](https://oxc.rs/) (ultrasnabb linter skriven i Rust)
+* **CI/CD:** GitHub Actions (automatisk kontroll med `oxlint` + `build` vid varje push/PR) + `gh-pages`
 
 ---
 
-## 🚀 Быстрый старт
+## 🚀 Snabbstart
 
-### Требования
-* [Node.js](https://nodejs.org/) v20+ (рекомендуется v22+)
+### Krav
+* [Node.js](https://nodejs.org/) v20+ (v22+ rekommenderas)
 * npm v10+
 
-### Установка и запуск
+### Installation och körning
 
 ```bash
-# Клонировать репозиторий
+# Klona repot
 git clone https://github.com/IvanK-9/grimoire.git
 cd grimoire
 
-# Установить зависимости
+# Installera beroenden
 npm install
 
-# Запуск dev-сервера с HMR
+# Starta dev-servern med HMR
 npm run dev
 
-# Проверка линтером (Oxlint)
+# Kör lintern (Oxlint)
 npm run lint
 
-# Сборка production-бандла
+# Bygg produktionspaketet
 npm run build
 
-# Локальный предпросмотр продакшн-сборки
+# Förhandsgranska produktionsbygget lokalt
 npm run preview
 ```
 
-### Деплой
-Деплой продакшн-сборки на GitHub Pages:
+### Driftsättning
+Driftsätt produktionsbygget på GitHub Pages:
 ```bash
 npm run deploy
 ```
 
 ---
 
-## 📁 Структура проекта
+## 📁 Projektstruktur
 
 ```text
 grimoire/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml               # CI пайплайн (линтер oxlint + сборка vite build)
-├── human_input/                 # ⚠️ СТРОГО READ-ONLY ДЛЯ AI (требования человека)
-│   └── requirements.md          # Зафиксированные решения команды и требования к MVP
+│       └── ci.yml               # CI-pipeline (oxlint-linter + vite build)
+├── human_input/                 # ⚠️ STRIKT READ-ONLY FÖR AI (mänskliga krav)
+│   └── requirements.md          # Teamets fastslagna beslut och krav på MVP:n
 ├── src/
-│   ├── assets/                  # Графика и иконки
-│   ├── App.jsx                  # Логика приложения (Bag, Seating, Drunk, JSON Loader)
-│   ├── index.css                # Подключение Tailwind CSS v4
-│   └── main.jsx                 # Точка входа React
-├── AGENTS.md                    # Инструкции для AI-агентов (защита human_input)
-├── index.html                   # HTML-каркас
-├── package.json                 # Зависимости и скрипты
-└── vite.config.js               # Конфигурация Vite и Tailwind v4
+│   ├── assets/                  # Grafik och ikoner
+│   ├── App.jsx                  # Applogik (Påse, Platser, Fyllo, JSON-inläsning)
+│   ├── index.css                # Inkludering av Tailwind CSS v4
+│   └── main.jsx                 # Ingångspunkt för React
+├── AGENTS.md                    # Instruktioner för AI-agenter (skydd av human_input)
+├── index.html                   # HTML-stomme
+├── package.json                 # Beroenden och skript
+└── vite.config.js               # Konfiguration av Vite och Tailwind v4
 ```
 
 ---
 
-## 👥 Правила работы с требованиями (`human_input/`)
+## 👥 Regler för arbete med kraven (`human_input/`)
 
-В проекте настроена строгая граница между кодом и человеческими требованиями:
-* Папка [`human_input/`](./human_input/) содержит исходные формулировки, решения команды и ограничения.
-* В файле [`AGENTS.md`](./AGENTS.md) закреплено правило: **любым AI-ассистентам (Gemini, Claude, Copilot) запрещено изменять или перезаписывать файлы в этой директории**. Человеческие договоренности остаются неизменными.
+Projektet har en strikt gräns mellan kod och mänskliga krav:
+* Mappen [`human_input/`](./human_input/) innehåller de ursprungliga formuleringarna, teamets beslut och begränsningar.
+* I filen [`AGENTS.md`](./AGENTS.md) slås regeln fast: **alla AI-assistenter (Gemini, Claude, Copilot) är förbjudna att ändra eller skriva över filer i den här katalogen**. Mänskliga överenskommelser förblir oförändrade.
 
 ---
 
-## 🩺 Журнал устранения недочётов (Post-Mortem & Fixes)
+## 🩺 Logg över åtgärdade brister (Post-Mortem & Fixes)
 
-В ходе первого ревью проекта были выявлены и полностью устранены технические недочёты:
+Vid den första granskningen av projektet hittades följande tekniska brister, som alla har åtgärdats:
 
-| Было (проблема) | Стало (решение) |
+| Före (problem) | Efter (lösning) |
 |---|---|
-| **Две системы деплоя:** В `package.json` был `gh-pages`, а рядом лежал нерабочий `.gitlab-ci.yml`. | Убран мёртвый `.gitlab-ci.yml`. Настроен полноценный GitHub Actions CI (`.github/workflows/ci.yml`), деплой зафиксирован на GitHub Pages. |
-| **CI без проверок:** В пайплайне не запускался линтер. | В CI-пайплайн добавлен обязательный шаг `npm run lint` (Oxlint) перед сборкой. |
-| **Мусор в корне:** Случайные файлы генерации `gemini-code-*.yaml` и `gemini-code-*.js`. | Все временные артефакты удалены из репозитория. |
-| **Рассинхрон зависимостей (`npm ls` error):** Версии `@vitejs/plugin-react` (^4.3.4) и `oxlint` (^0.15.0) вызывали `ELSPROBLEMS` при установленном Vite 8. | Зависимости в `package.json` синхронизированы с фактическими (`@vitejs/plugin-react@^6.2.1`, `oxlint@^1.91.0`). `npm ls` проходит с кодом 0 без ошибок. |
-| **Лишние пакеты:** `@types/react`, `@types/react-dom` (при отсутствии TS) и неиспользуемый `common-tags`. | Лишние пакеты удалены из `devDependencies`. |
-| **Пустой README:** Дефолтный шаблон от Vite. | Написан подробный production-ready README с описанием проекта, стека, запуска и архитектурных решений. |
+| **Två driftsättningssystem:** `package.json` innehöll `gh-pages`, samtidigt som en trasig `.gitlab-ci.yml` låg bredvid. | Den döda `.gitlab-ci.yml` togs bort. En fullständig GitHub Actions-CI (`.github/workflows/ci.yml`) sattes upp och driftsättningen låstes till GitHub Pages. |
+| **CI utan kontroller:** Lintern kördes inte i pipelinen. | Ett obligatoriskt steg `npm run lint` (Oxlint) före bygget lades till i CI-pipelinen. |
+| **Skräp i roten:** Slumpmässigt genererade filer `gemini-code-*.yaml` och `gemini-code-*.js`. | Alla tillfälliga artefakter togs bort från repot. |
+| **Osynkade beroenden (`npm ls`-fel):** Versionerna av `@vitejs/plugin-react` (^4.3.4) och `oxlint` (^0.15.0) orsakade `ELSPROBLEMS` med Vite 8 installerat. | Beroendena i `package.json` synkades med de faktiska (`@vitejs/plugin-react@^6.2.1`, `oxlint@^1.91.0`). `npm ls` avslutas med kod 0 utan fel. |
+| **Onödiga paket:** `@types/react`, `@types/react-dom` (trots att TS inte används) samt oanvända `common-tags`. | De onödiga paketen togs bort från `devDependencies`. |
+| **Tom README:** Standardmallen från Vite. | En utförlig, produktionsklar README skrevs med beskrivning av projektet, stacken, körning och arkitekturbeslut. |
